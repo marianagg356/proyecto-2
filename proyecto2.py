@@ -214,7 +214,7 @@ def salida_manual():
 # ==============================
 # 6. REPORTE DE VENTAS
 # =============================
-
+def reporte_ventas(): 
  
 # ==============================
 # 7. REPORTE DE SALIDAS
