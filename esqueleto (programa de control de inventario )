@@ -1,201 +1,232 @@
 #   PROGRAMA PARA CONTROL DE INVENTARIO Y VENTAS
 
-import time     # para la espera del mensaje de bienvenida
-import csv      # para guardar y leer archivos CSV
-from datetime import datetime  
+import time
+from datetime import datetime
+import csv
 
-# Archivos donde se guarda todo
+# ==============================
+# ARCHIVOS DEL SISTEMA
+# ==============================
+
 ARCHIVO_PRODUCTOS = "productos.csv"
 ARCHIVO_VENTAS = "ventas.csv"
 ARCHIVO_SALIDAS = "salidas.csv"
-ARCHIVO_SISTEMA = "archivo_sistema.txt" 
+ARCHIVO_SISTEMA = "archivo_sistema.txt"   
+
+inventario = {}
+
+UMBRAL_MAYOREO = 10
+DESCUENTO_MAYOREO = 0.10
+
+# ==============================
+# 1. BIENVENIDA + CARGA
+# ==============================
+
+def bienvenida():
+    nombre = input("Ingresa tu nombre: ")
+    print("\nBienvenido", nombre)
+    print("Cargando...", end="")
+    time.sleep(5)
+    print(" Listo!\n")
+
+# ==============================
+# FECHA AUTOMÁTICA
+# ==============================
+
+def pedir_fecha():
+    # puedo usar datetime para sacar día/mes/año
+    pass
 
 
-def main():
-    """
-    Aquí va el flujo principal:
-    - pedir nombre
-    - mensaje de bienvenida con 5 segundos
-    - cargar productos desde CSV
-    - mostrar menú en un ciclo
-    """
-    # Aquí va el código del programa principal
-    # cargar inventario, menú, opciones, etc.
-    ...
+# ==============================
+# CREAR ARCHIVOS SI NO EXISTEN
+# ==============================
+
+def iniciar_archivos():
+
+    try:
+        open(ARCHIVO_PRODUCTOS, "r")
+    except FileNotFoundError:
+        archivo = open(ARCHIVO_PRODUCTOS, "w", newline="", encoding="utf-8")
+        escritor = csv.writer(archivo)
+        escritor.writerow(["nombre", "precio", "cantidad"])
+        archivo.close()
+
+    try:
+        open(ARCHIVO_VENTAS, "r")
+    except FileNotFoundError:
+        archivo = open(ARCHIVO_VENTAS, "w", newline="", encoding="utf-8")
+        escritor = csv.writer(archivo)
+        escritor.writerow(["dia","mes","anio",
+                           "producto","cantidad",
+                           "precio_u","subtotal",
+                           "descuento","total"])
+        archivo.close()
+
+    try:
+        open(ARCHIVO_SALIDAS, "r")
+    except FileNotFoundError:
+        archivo = open(ARCHIVO_SALIDAS, "w", newline="", encoding="utf-8")
+        escritor = csv.writer(archivo)
+        escritor.writerow(["dia","mes","anio",
+                           "producto","cantidad_salida"])
+        archivo.close()
+
+    try:
+        open(ARCHIVO_SISTEMA, "r")
+    except FileNotFoundError:
+        archivo = open(ARCHIVO_SISTEMA, "w", encoding="utf-8")
+        archivo.write("ARCHIVO DEL SISTEMA - INTERNOS\n")
+        archivo.close()
 
 
-def solicitar_nombre():
-    """
-    Pide el nombre del usuario y lo regresa.
-    """
-    # Aquí va el input() del nombre
-    ...
+# ==============================
+# CARGAR INVENTARIO
+# ==============================
+
+inventario = {}
+
+def cargar_inventario():
+    # leer productos.csv y meterlos al diccionario
+    pass
 
 
-def mensaje_bienvenida(nombre):
-    """
-    Manda un mensaje de bienvenida y espera 5 segundos.
-    """
-    # print(), time.sleep(5), etc.  #el time.sleep es necesario no esta a discusión 
-    … 
+def guardar_inventario():
+    # guardar el diccionario en productos.csv
+    pass
 
 
-def mostrar_menu_principal():
-    """
-    Muestra el menú principal:
-    1. agregar producto
-    2. mostrar productos
-    3. buscar producto
-    4. venta
-    5. salida manual
-    6. reporte de ventas
-    7. cerrar programa
-    8. reporte de salidas
-    """
-    # imprimir menú y pedir opción con input()
-    ...
+# ==============================
+# 1. AGREGAR PRODUCTO
+# ==============================
+
+def agregar_producto():
+    pass
 
 
-def capturar_fecha():
-# forma 1:
-    from datetime import date, datetime
+# ==============================
+# 2. MOSTRAR PRODUCTOS
+# ==============================
 
-# Solo la fecha (día, mes, año)
-hoy = date.today()
-print("Fecha de hoy:", hoy
-    """
-#    Pide la fecha (dd/mm/aaaa) y la regresa como tupla.
-
-    """
-    # validar formato y convertir a tupla
-    ...
+def mostrar_productos():
+    pass
 
 
-def cargar_productos_csv():
-    """
-    Carga los productos desde productos.csv.
-    Regresa un diccionario tipo:
-    { "coca": {"precio": 20.0, "cantidad": 5}, ... }
-    """
-    # abrir CSV, leer líneas y llenar diccionario
-    ...
+# ==============================
+# 3. BUSCAR PRODUCTO
+# ==============================
+
+def buscar_producto():
+    pass
+
+# ==============================
+# 4. VENTAS 
+# ==============================
+
+# pedir cantidad, checar stock,
+# si se pasa: "Cantidad excedente de stock solo hay X"
+# calcular subtotal, descuento y total
+# y guardarlo en ventas.csv
+
+def venta():
+    pass
 
 
-def guardar_productos_csv(inventario):
-    """
-    Guarda todo el inventario en el archivo productos.csv.
-    """
-    # abrir productos.csv en modo escritura y guardar todo
-    ...
+# ==============================
+# 5. SALIDA MANUAL 
+# ==============================
+
+# baja de stock 
+# guardar fecha, producto y cantidad en salidas.csv
+
+def salida_manual():
+    pass
 
 
-def agregar_producto(inventario):
-    """
-    Agrega un producto nuevo o suma cantidad si ya existe.
-    Actualiza el archivo CSV después.
-    """
-    # pedir nombre, precio, cantidad y actualizar inventario
-    ...
+# ==============================
+# 6. REPORTE DE VENTAS
+# ==============================
 
-
-def mostrar_productos(inventario):
-    """
-    Muestra todos los productos con precio y cantidad.
-    """
-    # recorrer inventario e imprimir todo
-    ...
-
-
-def buscar_producto(inventario):
-    """
-    Pregunta: '¿Qué producto buscas perro?'
-    Si existe lo muestra; si no, avisa que no está.
-    """
-    # input(), buscar en inventario, mostrar datos
-    ...
-
-
-def menu_ventas(inventario):
-    """
-    Todo lo de ventas:
-    - pedir fecha
-    - pedir producto
-    - pedir cantidad
-      * si no hay suficientes, cancelar
-    - calcular total
-    - aplicar descuento por mayoreo
-    - actualizar inventario
-    - guardar venta en ventas.csv
-    """
-    # lógica de venta completa
-    ...
-
-
-def guardar_venta_csv(fecha, producto, cantidad, precio, subtotal, descuento, total):
-    """
-    Guarda una venta nueva en ventas.csv.
-    """
-    # abrir CSV en modo append y escribir la venta
-    ...
-
-
-def salida_manual(inventario):
-    """
-    Restar manualmente cantidades del inventario:
-    - pedir fecha
-    - pedir producto
-    - pedir cantidad
-    - actualizar inventario
-    - guardar salida en salidas.csv
-    """
-    # lógica de salida manual
-    ...
-
-
-def guardar_salida_csv(fecha, producto, cantidad):
-    """
-    Guarda una salida manual en el archivo salidas.csv.
-    """
-    # write en CSV
-    ...
-
+# leer ventas.csv y mostrar info
 
 def reporte_ventas():
-    """
-    Permite ver ventas:
-    - por día
-    - por mes
-    - por año
-    leyendo ventas.csv
-    """
-    # leer CSV y filtrar según lo que el usuario pida
-    ...
+    pass
 
+# ==============================
+# 7. REPORTE DE SALIDAS
+# ==============================
+
+# leer salidas.csv
 
 def reporte_salidas():
-    """
-    Permite ver salidas:
-    - por día
-    - por mes
-    - por año
-    leyendo salidas.csv
-    """
-    # leer CSV y mostrar según filtro
-    ...
+    pass
 
+
+# ==============================
+# 8. CERRAR PROGRAMA
+# ==============================
+
+# si dice que sí -> "gracias por usar el programa"
+# si no -> regresa al menú
 
 def cerrar_programa():
-    """
-    Pregunta si se quiere cerrar.
-    si = muestra 'gracias por usar el programa puto'
-    no = regresa al menú
-    """
-    # input(), decisión del usuario
-    ...
+    pass
 
-    main()
 
-#vamos equipo #fuerzaleona 
+# ==============================
+# MENÚ PRINCIPAL
+# ==============================
+
+def mostrar_menu():
+    print("\n=========== MENÚ PRINCIPAL ===========")
+    print("1. Agregar producto")
+    print("2. Mostrar productos")
+    print("3. Buscar producto")
+    print("4. Venta")
+    print("5. Salida manual")
+    print("6. Reporte de ventas")
+    print("7. Cerrar programa")
+    print("8. Reporte de salidas")
+    print("======================================\n")
+
+
+# ==============================
+# MAIN LOOP
+# ==============================
+
+def main():
+
+    bienvenida()
+    crear_archivos()
+    cargar_inventario()
+
+    salir = False
+
+    while not salir:
+        mostrar_menu()
+        opcion = input("Elige una opción: ")
+
+        if opcion == "1":
+            agregar_producto()
+        elif opcion == "2":
+            mostrar_productos()
+        elif opcion == "3":
+            buscar_producto()
+        elif opcion == "4":
+            venta()
+        elif opcion == "5":
+            salida_manual()
+        elif opcion == "6":
+            reporte_ventas()
+        elif opcion == "7":
+            salir = cerrar_programa()
+        elif opcion == "8":
+            reporte_salidas()
+        else:
+            print("Esa opción no existe.\n")
+
+
+main()
 
 #si se puede 
 
