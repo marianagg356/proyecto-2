@@ -10,7 +10,9 @@ ARCHIVO_VENTAS = "ventas.csv"
 ARCHIVO_SALIDAS = "salidas.csv"
 ARCHIVO_SISTEMA = "archivo_sistema.txt" 
 
-
+# ==============================
+# 1. BIENVENIDA + CARGA
+# ==============================
 def main():
     """
     Aquí va el flujo principal:
