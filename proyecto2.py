@@ -35,8 +35,11 @@ def bienvenida():
 # ==============================
 
 def pedir_fecha():
-    # puedo usar datetime para sacar día/mes/año
-    pass
+    ahora = datetime.now()
+    dia = ahora.day
+    mes = ahora.month
+    anio = ahora.year
+    return (dia, mes, anio)
 
 
 # ==============================
