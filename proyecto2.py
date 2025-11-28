@@ -118,7 +118,18 @@ def guardar_inventario():
 # ==============================
 
 def agregar_producto():
-    pass
+    nombre = input("Nombre del producto: ")
+    precio = float(input("Precio: "))
+    cantidad = int(input("Cantidad: "))
+
+    if nombre in inventario:
+        inventario[nombre]["cantidad"] += cantidad
+        print("Cantidad sumada al producto existente.\n")
+    else:
+        inventario[nombre] = {"precio": precio, "cantidad": cantidad}
+        print("Producto agregado.\n")
+
+    guardar_inventario()
 
 
 # ==============================
@@ -126,8 +137,14 @@ def agregar_producto():
 # ==============================
 
 def mostrar_productos():
-    pass
+    if not inventario:
+        print("Inventario vacío.\n")
+        return
 
+    print("\n--- PRODUCTOS ---")
+    for nombre, d in inventario.items():
+        print(nombre, "| Precio:", d["precio"], "| Cant:", d["cantidad"])
+    print()
 
 # ==============================
 # 3. BUSCAR PRODUCTO
