@@ -262,7 +262,7 @@ def reporte_salidas():
 def cerrar_programa():
     op = input("¿Seguro que quieres salir? (si/no): ")
     if op == "si":
-        print("gracias por usar el programa puto")
+        print("gracias por usar el programa")
         return True
     print("Volviendo al menú...\n")
     return False
