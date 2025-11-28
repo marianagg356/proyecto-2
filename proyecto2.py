@@ -25,6 +25,7 @@ DESCUENTO_MAYOREO = 0.10
 
 def bienvenida():
     nombre = input("Ingresa tu nombre: ")
+    time.sleep(5)
     print("\nBienvenido", nombre)
     print("Cargando...", end="")
     time.sleep(5)
@@ -215,6 +216,19 @@ def salida_manual():
 # 6. REPORTE DE VENTAS
 # =============================
 def reporte_ventas(): 
+    print("\n--- REPORTE DE VENTAS ---")
+    try:
+        archivo = open(ARCHIVO_VENTAS, "r", encoding="utf-8")
+        lector = csv.DictReader(archivo)
+        for fila in lector:
+            print(fila["dia"]+"/"+fila["mes"]+"/"+fila["anio"],
+                  "|", fila["producto"],
+                  "| Cant:", fila["cantidad"],
+                  "| Total:", fila["total"])
+        archivo.close()
+    except FileNotFoundError:
+        print("No hay ventas registradas.")
+    print()
  
 # ==============================
 # 7. REPORTE DE SALIDAS
