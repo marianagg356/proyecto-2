@@ -183,11 +183,32 @@ def venta():
 # 5. SALIDA MANUAL 
 # ==============================
 
-# baja de stock 
-# guardar fecha, producto y cantidad en salidas.csv
-
 def salida_manual():
-    pass
+    print("\n*** DESPLIEGUE DE MENU DE SALIDAS ***")
+
+    dia, mes, anio = pedir_fecha()
+
+    nombre = input("Producto a dar de baja: ")
+
+    if nombre not in inventario:
+        print("No existe.\n")
+        return
+
+    cantidad = int(input("Cantidad a dar de baja: "))
+
+    if cantidad > inventario[nombre]["cantidad"]:
+        print("No puedes dar de baja más de lo existente.\n")
+        return
+
+    inventario[nombre]["cantidad"] -= cantidad
+    guardar_inventario()
+
+    archivo = open(ARCHIVO_SALIDAS, "a", newline="", encoding="utf-8")
+    escritor = csv.writer(archivo)
+    escritor.writerow([dia, mes, anio, nombre, cantidad])
+    archivo.close()
+
+    print("Salida registrada.\n")
 
 
 # ==============================
