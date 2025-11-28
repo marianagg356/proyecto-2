@@ -88,16 +88,28 @@ def iniciar_archivos():
 # CARGAR INVENTARIO
 # ==============================
 
-inventario = {}
-
 def cargar_inventario():
-    # leer productos.csv y meterlos al diccionario
-    pass
+    inventario.clear()
+    try:
+        archivo = open(ARCHIVO_PRODUCTOS, "r", encoding="utf-8")
+        lector = csv.DictReader(archivo)
+        for fila in lector:
+            nombre = fila["nombre"]
+            precio = float(fila["precio"])
+            cantidad = int(fila["cantidad"])
+            inventario[nombre] = {"precio": precio, "cantidad": cantidad}
+        archivo.close()
+    except FileNotFoundError:
+        pass
 
 
 def guardar_inventario():
-    # guardar el diccionario en productos.csv
-    pass
+    archivo = open(ARCHIVO_PRODUCTOS, "w", newline="", encoding="utf-8")
+    escritor = csv.writer(archivo)
+    escritor.writerow(["nombre","precio","cantidad"])
+    for nombre, datos in inventario.items():
+        escritor.writerow([nombre, datos["precio"], datos["cantidad"]])
+    archivo.close()
 
 
 # ==============================
