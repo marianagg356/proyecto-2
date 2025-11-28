@@ -139,13 +139,44 @@ def buscar_producto():
 # 4. VENTAS 
 # ==============================
 
-# pedir cantidad, checar stock,
-# si se pasa: "Cantidad excedente de stock solo hay X"
-# calcular subtotal, descuento y total
-# y guardarlo en ventas.csv
-
 def venta():
-    pass
+    print("\n*** DESPLIEGUE DE MENU DE VENTAS ***")
+
+    dia, mes, anio = pedir_fecha()
+
+    nombre = input("Producto vendido: ")
+
+    if nombre not in inventario:
+        print("Ese producto no existe.\n")
+        return
+
+    stock = inventario[nombre]["cantidad"]
+    precio_u = inventario[nombre]["precio"]
+
+    cantidad = int(input("Cantidad vendida: "))
+
+    if cantidad > stock:
+        print("Cantidad excedente de stock, solo hay", stock, "\n")
+        return
+
+    subtotal = precio_u * cantidad
+    descuento = subtotal * DESCUENTO_MAYOREO if cantidad >= UMBRAL_MAYOREO else 0
+    total = subtotal - descuento
+
+    inventario[nombre]["cantidad"] -= cantidad
+    guardar_inventario()
+
+    print("\nVenta registrada:")
+    print("Subtotal:", subtotal)
+    print("Descuento:", descuento)
+    print("Total:", total, "\n")
+
+    archivo = open(ARCHIVO_VENTAS, "a", newline="", encoding="utf-8")
+    escritor = csv.writer(archivo)
+    escritor.writerow([dia, mes, anio, nombre,
+                       cantidad, precio_u,
+                       subtotal, descuento, total])
+    archivo.close()
 
 
 # ==============================
