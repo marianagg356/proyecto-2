@@ -213,13 +213,9 @@ def salida_manual():
 
 # ==============================
 # 6. REPORTE DE VENTAS
-# ==============================
+# =============================
 
-# leer ventas.csv y mostrar info
-
-def reporte_ventas():
-    pass
-
+ 
 # ==============================
 # 7. REPORTE DE SALIDAS
 # ==============================
@@ -227,7 +223,19 @@ def reporte_ventas():
 # leer salidas.csv
 
 def reporte_salidas():
-    pass
+    print("\n--- REPORTE DE SALIDAS ---")
+    try:
+        archivo = open(ARCHIVO_SALIDAS, "r", encoding="utf-8")
+        lector = csv.DictReader(archivo)
+        for fila in lector:
+            print(fila["dia"]+"/"+fila["mes"]+"/"+fila["anio"],
+                  "|", fila["producto"],
+                  "| Salida:", fila["cantidad_salida"])
+        archivo.close()
+    except FileNotFoundError:
+        print("No hay salidas.")
+    print()
+    
 
 
 # ==============================
