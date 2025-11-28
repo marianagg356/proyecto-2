@@ -118,7 +118,19 @@ def guardar_inventario():
 # ==============================
 
 def agregar_producto():
-    pass
+   def agregar_producto():
+    nombre = input("Nombre del producto: ")
+    precio = float(input("Precio: "))
+    cantidad = int(input("Cantidad: "))
+
+    if nombre in inventario:
+        inventario[nombre]["cantidad"] += cantidad
+        print("Cantidad sumada al producto existente.\n")
+    else:
+        inventario[nombre] = {"precio": precio, "cantidad": cantidad}
+        print("Producto agregado.\n")
+
+    guardar_inventario()
 
 
 # ==============================
